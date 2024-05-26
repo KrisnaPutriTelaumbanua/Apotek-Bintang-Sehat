@@ -9,10 +9,9 @@ return new class extends Migration {
     {
         Schema::create('karyawan', function (Blueprint $table) {
             $table->id();
-            $table->string('nama', 100);
-            $table->string('email', 100)->unique();
-            $table->string('posisi', 100);
-            $table->decimal('gaji', 10, 2);
+            $table->string('nama');
+            $table->string('email')->unique();
+            $table->string('posisi');
             $table->date('tanggal_mulai');
             $table->timestamps();
         });

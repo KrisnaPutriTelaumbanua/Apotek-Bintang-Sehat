@@ -5,6 +5,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KasirController;
 use App\Http\Controllers\TestingController;
 use App\Http\Controllers\TransaksiController;
+use App\Http\Controllers\KaryawanController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -69,3 +70,22 @@ Route::get('/logout', function () {
 
     Route::get('/dashboard', [DashboardController::class, 'index'])
         ->middleware('auth');
+
+
+Route::group(['prefix'=>'karyawan'], function(){
+
+    Route::get('/', [KaryawanController::class, 'list']);
+    Route::get('/export/excel', [KaryawanController::class, 'excel'])->name('tch.excel');
+//Route::get('/{id}', [KaryawanController::class, 'detail']);
+    Route::get('/add', [KaryawanController::class, 'add']);
+    Route::get('/edit/{id}', [KaryawanController::class, 'edit']);
+    Route::get('/karyawan/add', [KaryawanController::class, 'add'])->name('karyawan.add');
+    Route::get('/karyawan/edit/{id}', [KaryawanController::class, 'edit'])->name('karyawan.edit');
+    Route::post('/karyawan/hapus', [KaryawanController::class, 'hapus'])->name('karyawan.hapus');
+
+
+
+    Route::post('/update', [KaryawanController::class, 'update']);
+    Route::post('/insert', [KaryawanController::class, 'insert']);
+    Route::post('/delete', [KaryawanController::class, 'delete']);
+});

@@ -49,7 +49,7 @@
                     <!-- /.login-logo -->
                     <div class="card card-outline card-primary">
                         <div class="card-header text-center">
-                            <a href="#" class="h1"><b>APOTEK</b>BINTANG  SEHAT</a>
+                            <a href="#" class="h1"><b>APOTEK BINTANG  SEHAT </b></a>
                         </div>
                         <div class="card-body">
                     @yield('content')
