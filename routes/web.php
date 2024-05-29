@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 
 
 
+
 Route::get('/', function () {
     return view('welcome');
 })->middleware('auth');
@@ -84,13 +85,15 @@ Route::group(['prefix' => 'shift'], function () {
 
 Route::group(['prefix'=>'product'], function(){
 
-    Route::get('/', [ProductController::class, 'list']);
-    Route::get('/add', [ProductController::class, 'add']);
-    Route::get('/edit/{id}', [ProductController::class, 'edit']);
 
-    Route::post('/update', [ProductController::class, 'update']);
-    Route::post('/insert', [ProductController::class, 'insert']);
-    Route::post('/delete', [ProductController::class, 'delete']);
+
+    Route::get('/product', [ProductController::class, 'list'])->name('product.list');
+    Route::get('/product/add', [ProductController::class, 'add'])->name('product.add');
+    Route::post('/product/insert', [ProductController::class, 'insert'])->name('product.insert');
+    Route::get('/product/edit/{id}', [ProductController::class, 'edit'])->name('product.edit');
+    Route::post('/product/update/{id}', [ProductController::class, 'update'])->name('product.update');
+    Route::delete('/product/delete/{id}', [ProductController::class, 'delete'])->name('product.delete');
+
 });
 
 Route::group([ 'prefix' => 'user'], function () {

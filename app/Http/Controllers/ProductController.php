@@ -7,44 +7,46 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
         $validated = $request->validate([
             'code' => 'required',
             'name' => 'required',
-            'tanggal_kadaluarsa' => 'required',
-            'price' => 'required',
+            'tanggal_kadaluarsa' => 'required|date',
+            'price' => 'required|numeric',
         ]);
-        $product = Product::find($request->id);
+
+        $product = Product::find($id);
         if ($product === null) {
             abort(404);
         }
-        $product->code = $request->code;
-        $product->name = $request->name;
-        $product->tanggal_kadaluarsa = $request->tanggal_kadaluarsa;
-        $product->price = $request->price;
+
+        $product->code = $validated['code'];
+        $product->name = $validated['name'];
+        $product->tanggal_kadaluarsa = $validated['tanggal_kadaluarsa'];
+        $product->price = $validated['price'];
         $product->save();
-        return redirect(url('/product'));
+
+        return redirect()->route('product.list');
     }
 
-    public function edit(Request $request, $id)
+    public function edit($id)
     {
         $product = Product::find($id);
         if ($product === null) {
             abort(404);
         }
-        return view('content.product.edit', [
-            'product' => $product
-        ]);
+
+        return view('content.product.edit', compact('product'));
     }
 
-    public function delete(Request $request)
+    public function delete($id)
     {
-        $idProduct = $request->id;
-        $product = Product::find($idProduct);
+        $product = Product::find($id);
         if ($product === null) {
             return response()->json([], 404);
         }
+
         $product->delete();
         return response()->json([], 200);
     }
@@ -54,26 +56,24 @@ class ProductController extends Controller
         $validated = $request->validate([
             'code' => 'required',
             'name' => 'required',
-            'tanggal_kadaluarsa' =>'required',
-            'price' => 'required',
+            'tanggal_kadaluarsa' => 'required|date',
+            'price' => 'required|numeric',
         ]);
-        #sudah tervalidasi
-        $product = new Product();
-        $product->code = $request->code;
-        $product->name = $request->name;
-        $product->tanggal_kadaluarsa = $request->tanggal_kadaluarsa;
-        $product->price = $request->price;
-        $product->save();
-        return redirect(url('/product'));
 
+        $product = new Product();
+        $product->code = $validated['code'];
+        $product->name = $validated['name'];
+        $product->tanggal_kadaluarsa = $validated['tanggal_kadaluarsa'];
+        $product->price = $validated['price'];
+        $product->save();
+
+        return redirect()->route('product.list');
     }
 
     public function list()
     {
         $products = Product::paginate(10);
-        return view('content.product.list', [
-            'products' => $products
-        ]);
+        return view('content.product.list', compact('products'));
     }
 
     public function add()
@@ -81,5 +81,3 @@ class ProductController extends Controller
         return view('content.product.add');
     }
 }
-
-

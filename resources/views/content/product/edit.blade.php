@@ -1,11 +1,10 @@
 @extends('layout.main')
-
-@section('judul', 'Tambah Data Product')
+@section('judul', 'Edit Product')
 
 @section('content')
-    <form method="post" action="{{ url('product/update') }}">
+    <form method="post" action="{{ route('product.update', $product->id) }}">
         @csrf
-        <input type="hidden" name="id" value="{{ $product->id }}">
+        @method('PUT')
         <div class="row">
             <div class="col-12">
                 <div class="card">
@@ -15,7 +14,7 @@
                             <input type="text"
                                    class="form-control @error('code') is-invalid @enderror"
                                    value="{{ $product->code }}"
-                                   name="code" id="code">
+                                   name="code">
                             @error('code')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -27,7 +26,7 @@
                             <input type="text"
                                    class="form-control @error('name') is-invalid @enderror"
                                    value="{{ $product->name }}"
-                                   name="name" id="name">
+                                   name="name">
                             @error('name')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -35,11 +34,11 @@
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="tanggal_kadaluarsa">Tanggal Kadaluarsa</label>
-                            <input type="text"
+                            <label for="tanggal_kadaluarsa">Expiration Date</label>
+                            <input type="date"
                                    class="form-control @error('tanggal_kadaluarsa') is-invalid @enderror"
                                    value="{{ $product->tanggal_kadaluarsa }}"
-                                   name="tanggal_kadaluarsa" id="tanggal_kadaluarsa">
+                                   name="tanggal_kadaluarsa">
                             @error('tanggal_kadaluarsa')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -48,17 +47,17 @@
                         </div>
                         <div class="form-group">
                             <label for="price">Price</label>
-                            <input type="text"
+                            <input type="number"
                                    class="form-control @error('price') is-invalid @enderror"
                                    value="{{ $product->price }}"
-                                   name="price" id="price">
+                                   name="price">
                             @error('price')
                             <div class="invalid-feedback">
                                 {{ $message }}
                             </div>
                             @enderror
                         </div>
-                        <button type="submit" class="btn btn-primary">Simpan</button>
+                        <button class="btn btn-primary">Save</button>
                     </div>
                 </div>
             </div>
