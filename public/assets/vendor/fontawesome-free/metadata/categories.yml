@@ -777,7 +777,7 @@ education:
     - book-open
     - book-reader
     - chalkboard
-    - chalkboard-teacher
+    - chalkboard-karyawan
     - graduation-cap
     - laptop-code
     - microscope
@@ -2414,7 +2414,7 @@ users-people:
     - bed
     - biking
     - blind
-    - chalkboard-teacher
+    - chalkboard-karyawan
     - child
     - female
     - frown

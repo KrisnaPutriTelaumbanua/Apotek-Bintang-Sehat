@@ -12,7 +12,7 @@ class AuthController extends Controller
 {
     public function index()
     {
-        return view('content.auth.login');//main
+        return view('content.auth.login');
     }
 
     public function verify(Request $request)

@@ -5,7 +5,9 @@
         <th>Nama</th>
         <th>Email</th>
         <th>Posisi</th>
-        <th>Tanggal Mulai</th>
+        <th>Tanggal Lahir</th>
+        <th>Umur</th>
+
     </tr>
     </thead>
     <tbody>
@@ -15,10 +17,11 @@
     @foreach($rows as $karyawan)
         <tr>
             <td>{{$i++}}</td>
-            <td>{{$karyawan->nama}}</td>
+            <td>{{$karyawan->name}}</td>
             <td>{{$karyawan->email}}</td>
             <td>{{$karyawan->posisi}}</td>
-            <td>{{$karyawan->tanggal_mulai}}</td>
+            <td>{{$karyawan->dob}}</td>
+            <td>{{$karyawan->age}} Tahun</td>
         </tr>
     @endforeach
     </tbody>

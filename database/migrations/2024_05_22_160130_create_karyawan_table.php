@@ -9,10 +9,10 @@ return new class extends Migration {
     {
         Schema::create('karyawan', function (Blueprint $table) {
             $table->id();
-            $table->string('nama');
+            $table->string('name');
             $table->string('email')->unique();
             $table->string('posisi');
-            $table->date('tanggal_mulai');
+            $table->date('dob');
             $table->timestamps();
         });
     }

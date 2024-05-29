@@ -3340,10 +3340,10 @@ chalkboard:
     - solid
   unicode: f51b
   voted: false
-chalkboard-teacher:
+chalkboard-karyawan:
   changes:
     - 5.0.13
-  label: Chalkboard Teacher
+  label: Chalkboard karyawan
   search:
     terms:
       - blackboard
@@ -15989,7 +15989,7 @@ school:
       - education
       - learn
       - student
-      - teacher
+      - karyawan
   styles:
     - solid
   unicode: f549

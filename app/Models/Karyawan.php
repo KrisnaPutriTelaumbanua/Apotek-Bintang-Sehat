@@ -11,24 +11,14 @@ class Karyawan extends Model
     use HasFactory, SoftDeletes;
 
     protected $table = 'karyawan';
+    protected $appends = ['age'];
 
-    protected $fillable = [
-        'name',
-        'email',
-        'posisi',
-        'tanggal_masuk',
-    ];
-
-    // Jika ada atribut tambahan yang perlu dihitung atau diakses secara dinamis, gunakan accessor atau mutator
-    // protected $appends = ['age'];
-
-    // public function getAgeAttribute()
-    // {
-    //     return Carbon::parse($this->dob)->age;
-    // }
-
-    public function shift()
+    public function getAgeAttribute()
     {
-        return $this->hasMany(Shift::class, 'id_karyawan', 'id');
+        return Carbon::parse($this->dob)->age;
+    }
+    public function shifts()
+    {
+        return $this->hasMany(Student::class, 'id_karyawan', 'id');
     }
 }

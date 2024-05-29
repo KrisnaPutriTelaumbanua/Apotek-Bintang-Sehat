@@ -404,7 +404,7 @@ nimblr:
 nompse:
   icons:
     - chalkboard
-    - chalkboard-teacher
+    - chalkboard-karyawan
   label: Nomp.se
   url: 'https://nomp.se'
 ns8:

@@ -9,9 +9,8 @@ return new class extends Migration {
     {
         Schema::create('shifts', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('karyawan_id')->constrained('karyawan')->onDelete('cascade');
-            $table->date('tanggal_shift');
-            $table->enum('jenis_shift', ['pagi', 'siang']);
+            $table->foreignId('karyawan_id');
+            $table->enum('jenis_shift', ['siang', 'malam']);
             $table->time('waktu_mulai');
             $table->time('waktu_selesai');
             $table->timestamps();

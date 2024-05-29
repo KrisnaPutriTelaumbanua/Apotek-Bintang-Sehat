@@ -6,8 +6,11 @@ use App\Http\Controllers\KasirController;
 use App\Http\Controllers\TestingController;
 use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\KaryawanController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ShiftController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+
 
 
 Route::get('/', function () {
@@ -29,26 +32,6 @@ Route::get('/logout', function () {
     return redirect('/login');
 });
 
-//Route::group([
-//    'middleware' => ['auth', 'role.admin'],
-//    'prefix' => 'teacher'
-//], function () {
-//    Route::get('/', [TeacherController::class, 'list']);
-////    Route::get('/{id}',[TeacherController::class,'detail']);
-//    Route::get('/add', [TeacherController::class, 'add']);
-//    Route::get('/export/excel', [TeacherController::class, 'excel'])->name('tch.excel');
-//    Route::get('/edit/{id}', [TeacherController::class, 'edit'])->middleware('role.superadmin');
-//
-//    Route::post('/insert', [TeacherController::class, 'insert']);
-//    Route::post('/update', [TeacherController::class, 'update'])->middleware('role.superadmin');
-//    Route::post('/delete', [TeacherController::class, 'delete'])->middleware('role.superadmin');
-//});
-
-    Route::group(['middleware' => ['auth', 'role.admin'], 'prefix' => 'user'], function () {
-        Route::get('/change-password', [TestingController::class, 'changePassword']);
-
-        Route::post('/change-password', [TestingController::class, 'updatePassword']);
-    });
 
     Route::get('mail/test', function () {
         \Illuminate\Support\Facades\Mail::to('jokowi@gmail.com')
@@ -72,20 +55,46 @@ Route::get('/logout', function () {
         ->middleware('auth');
 
 
-Route::group(['prefix'=>'karyawan'], function(){
+
+Route::group(['prefix'=>'karyawan'], function() {
 
     Route::get('/', [KaryawanController::class, 'list']);
     Route::get('/export/excel', [KaryawanController::class, 'excel'])->name('tch.excel');
-//Route::get('/{id}', [KaryawanController::class, 'detail']);
     Route::get('/add', [KaryawanController::class, 'add']);
     Route::get('/edit/{id}', [KaryawanController::class, 'edit']);
-    Route::get('/karyawan/add', [KaryawanController::class, 'add'])->name('karyawan.add');
-    Route::get('/karyawan/edit/{id}', [KaryawanController::class, 'edit'])->name('karyawan.edit');
-    Route::post('/karyawan/hapus', [KaryawanController::class, 'hapus'])->name('karyawan.hapus');
-
-
-
-    Route::post('/update', [KaryawanController::class, 'update']);
     Route::post('/insert', [KaryawanController::class, 'insert']);
+    Route::post('/update', [KaryawanController::class, 'update']);
+//    Route::get('/karyawan/add', [KaryawanController::class, 'add'])->name('karyawan.add');
     Route::post('/delete', [KaryawanController::class, 'delete']);
+});
+
+Route::group(['prefix' => 'shift'], function () {
+    Route::get('/shift', [ShiftController::class, 'list'])->name('shift.index');
+    Route::get('/', [ShiftController::class, 'list'])->name('shift.list');
+    Route::get('/add', [ShiftController::class, 'add'])->name('shift.add');
+    Route::post('/insert', [ShiftController::class, 'insert'])->name('shift.insert');
+
+    Route::post('/update', [ShiftController::class, 'update']);
+    Route::get('/edit/{id}', [ShiftController::class, 'edit'])->name('shift.edit');
+    Route::post('/delete', [ShiftController::class, 'delete'])->name('shift.delete');
+    Route::delete('/shift/delete/{id}', 'ShiftController@delete')->name('shift.delete');
+    Route::post('/shift/update/{id}', [ShiftController::class, 'update'])->name('shift.update');
+});
+
+
+Route::group(['prefix'=>'product'], function(){
+
+    Route::get('/', [ProductController::class, 'list']);
+    Route::get('/add', [ProductController::class, 'add']);
+    Route::get('/edit/{id}', [ProductController::class, 'edit']);
+
+    Route::post('/update', [ProductController::class, 'update']);
+    Route::post('/insert', [ProductController::class, 'insert']);
+    Route::post('/delete', [ProductController::class, 'delete']);
+});
+
+Route::group([ 'prefix' => 'user'], function () {
+    Route::get('/change-password', [TestingController::class, 'changePassword']);
+
+    Route::post('/change-password', [TestingController::class, 'updatePassword']);
 });

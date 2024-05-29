@@ -19,14 +19,14 @@
 
     <!-- Nav Item - Charts -->
     <li class="nav-item">
-        <a class="nav-link" href="charts.html">
-            <i class="fas fa-fw fa-chart-area"></i>
-            <span>Aplikasi Kasir</span></a>
+        <a href={{url('/app')}} class="nav-link" >
+            <i class="fas fa-money-bill-wave"></i>
+            <span>Kasir</span></a>
     </li>
 
     <li class="nav-item">
-        <a class="nav-link" href="charts.html">
-            <i class="fas fa-fw fa-chart-area"></i>
+        <a href="{{url('/product')}}" class="nav-link" >
+            <i class="fas fa-prescription-bottle"></i>
             <span>Data Obat</span></a>
     </li>
 

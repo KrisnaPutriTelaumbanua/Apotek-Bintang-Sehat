@@ -2,9 +2,8 @@
 
 
 namespace App\Http\Controllers;
-use Illuminate\Pagination\Paginator;
 
-use App\Export\TeacherXLS;
+use App\Export\KaryawanXLS;
 use App\Models\Karyawan;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -15,19 +14,19 @@ class KaryawanController extends Controller
     public function update(Request $request)
     {
         $validated = $request->validate([
-            'nama' => 'required',
+            'name' => 'required',
             'email' => 'required|email',
-            'posisi' => 'required',
-            'tanggal_mulai' => 'required|date',
+            'posisi'=>'required',
+            'dob' => 'required|date,|before:' . Carbon::now()->addDay()->format('Y-m-d') . '',
         ]);
         $karyawan = Karyawan::find($request->id);
         if ($karyawan === null) {
             abort(404);
         }
-        $karyawan->nama = $request->nama;
+        $karyawan->name = $request->name;
         $karyawan->email = $request->email;
         $karyawan->posisi = $request->posisi;
-        $karyawan->tanggal_mulai = $request->tanggal_mulai;
+        $karyawan->dob = $request->dob;
         $karyawan->save();
         return redirect(url('/karyawan'));
     }
@@ -57,18 +56,17 @@ class KaryawanController extends Controller
     public function insert(Request $request)
     {
         $validated = $request->validate([
-            'nama' => 'required',
+            'name' => 'required',
             'email' => 'required|email',
-            'posisi' => 'required',
-            'tanggal_mulai' => 'required|date',
+            'posisi'=>'required',
+            'dob' => 'required|date|before:' . Carbon::now()->addDay()->format('Y-m-d') . '',
         ]);
-
         #sudah tervalidasi
         $karyawan = new Karyawan();
-        $karyawan->nama = $request->nama;
+        $karyawan->name = $request->name;
         $karyawan->email = $request->email;
         $karyawan->posisi = $request->posisi;
-        $karyawan->tanggal_mulai = $request->tanggal_mulai;
+        $karyawan->dob = $request->dob;
         $karyawan->save();
         return redirect(url('/karyawan'));
 
@@ -76,14 +74,11 @@ class KaryawanController extends Controller
 
     public function list()
     {
-        $karyawan = Karyawan::paginate(10);
-
+        $karyawan = Karyawan::query()->paginate(10);
         return view('content.karyawan.list', [
             'karyawan' => $karyawan
         ]);
     }
-
-
 
     public function add()
     {
@@ -92,7 +87,7 @@ class KaryawanController extends Controller
 
     public function excel()
     {
-        return Excel::download(new KaryawanXLS(), 'karyawan_' . date('YmdHis') . '.xlsx');
+        return Excel::download(new karyawanXLS(), 'karyawan_' . date('YmdHis') . '.xlsx');
     }
 
 }

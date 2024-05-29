@@ -12,10 +12,10 @@
                         <div class="form-group">
                             <label for="">Name</label>
                             <input type="text"
-                                   class="form-control @error('nama') is-invalid @enderror"
-                                   value="{{$karyawan->nama}}"
-                                   name="nama">
-                            @error('nama')
+                                   class="form-control @error('name') is-invalid @enderror"
+                                   value="{{$karyawan->name}}"
+                                   name="name">
+                            @error('name')
                             <div class="invalid-feedback">
                                 {{$message}}
                             </div>
@@ -46,12 +46,12 @@
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="">Tanggal Mulai</label>
+                            <label for="">Date Of Birth</label>
                             <input type="date"
-                                   class="form-control @error('tanggal_mulai') is-invalid @enderror"
-                                   value="{{$karyawan->tanggal_mulai}}"
-                                   name="tanggal_mulai">
-                            @error('tanggal_mulai')
+                                   class="form-control @error('dob') is-invalid @enderror"
+                                   value="{{$karyawan->dob}}"
+                                   name="dob">
+                            @error('dob')
                             <div class="invalid-feedback">
                                 {{$message}}
                             </div>
